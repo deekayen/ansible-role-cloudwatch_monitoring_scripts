@@ -1,0 +1,7 @@
+---
+roles:
+  - name: blackstar257.perl
+
+# blackstar257.perl uses community.general.cpanm.
+collections:
+  - name: community.general

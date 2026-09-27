@@ -1,6 +1,12 @@
 AWS CloudWatch monitoring scripts
 =========
 
+> **Deprecated.** AWS replaced the CloudWatch Monitoring Scripts with the
+> [CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html);
+> use [deekayen.aws_cloudwatch_agent](https://github.com/deekayen/ansible-role-aws-cloudwatch-agent)
+> for new hosts. This role is kept for existing EL 7/8 hosts. CI lints and
+> syntax-checks it but no longer converges it on a running system.
+
 ![CI](https://github.com/deekayen/ansible-role-cloudwatch_monitoring_scripts/workflows/CI/badge.svg?branch=main) [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive) ![MIT license](https://img.shields.io/badge/license-MIT-blue)
 
 An Ansible role to install AWS Cloudwatch Logs agent and monitoring scripts on Enterprise Linux.

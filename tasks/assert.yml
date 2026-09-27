@@ -1,0 +1,14 @@
+---
+- name: Assert aws_mon_script_install_dir is an absolute path.
+  ansible.builtin.assert:
+    that:
+      - aws_mon_script_install_dir is match('^/')
+    fail_msg: "aws_mon_script_install_dir must be an absolute path, got: {{ aws_mon_script_install_dir }}"
+    quiet: true
+
+- name: Assert aws_mon_script_url is an HTTP(S) zip URL.
+  ansible.builtin.assert:
+    that:
+      - aws_mon_script_url is match('^https?://.+\.zip$')
+    fail_msg: "aws_mon_script_url must be an http(s) URL of a .zip file, got: {{ aws_mon_script_url }}"
+    quiet: true

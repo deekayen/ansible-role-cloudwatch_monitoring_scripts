@@ -1,13 +1,17 @@
 ---
+- name: Validate role variables.
+  ansible.builtin.import_tasks: assert.yml
+  tags:
+    - always
 
 - name: "Debug: OS version."
-  debug:
-    var: ansible_distribution_major_version
+  ansible.builtin.debug:
+    var: ansible_facts.distribution_major_version
     verbosity: 1
 
 - name: "Debug: OS name."
-  debug:
-    var: ansible_distribution
+  ansible.builtin.debug:
+    var: ansible_facts.distribution
     verbosity: 1
 
 # Install monitoring script
@@ -15,40 +19,37 @@
 # See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 
 - name: Install script dependencies for EL (any).
-  yum:
+  ansible.builtin.package:
     name: "{{ package_dependencies }}"
     state: present
   when:
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+    - ansible_facts.distribution == 'CentOS' or ansible_facts.distribution == 'RedHat'
 
 - name: Install script dependencies for EL 7.
-  yum:
+  ansible.builtin.package:
     name:
       - perl-Sys-Syslog
       - perl-LWP-Protocol-https
     state: present
   when:
-    - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
-    - ansible_distribution_major_version == '7'
-
-# Monitoring Memory and Disk Metrics for Amazon EC2 Linux Instances
-# See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+    - ansible_facts.distribution == 'CentOS' or ansible_facts.distribution == 'RedHat'
+    - ansible_facts.distribution_major_version == '7'
 
 - name: Unarchive the CloudWatch monitoring package.
-  unarchive:
+  ansible.builtin.unarchive:
     src: "{{ aws_mon_script_url }}"
     dest: "{{ aws_mon_script_install_dir }}"
     remote_src: true
-    mode: 0755
+    mode: "0755"
   register: get_mon_script
 
 - name: "Debug: monitoring script install."
-  debug:
+  ansible.builtin.debug:
     var: get_mon_script
     verbosity: 2
 
 - name: Set a cron every 5 minutes to run perl.
-  cron:
+  ansible.builtin.cron:
     name: "run mon-put-instance-data.pl every 5mn"
     minute: "*/5"
     user: root

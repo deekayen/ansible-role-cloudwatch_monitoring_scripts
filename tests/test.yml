@@ -1,0 +1,7 @@
+---
+- name: Apply the cloudwatch_monitoring_scripts role for a syntax check.
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - role: deekayen.cloudwatch_monitoring_scripts

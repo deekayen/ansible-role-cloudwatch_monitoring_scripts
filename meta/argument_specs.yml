@@ -1,0 +1,19 @@
+---
+argument_specs:
+  main:
+    short_description: Install the deprecated AWS CloudWatch monitoring scripts.
+    description:
+      - Installs the Perl CloudWatch Monitoring Scripts and a cron job that
+        reports memory, swap, and disk metrics every five minutes. AWS
+        replaced these scripts with the CloudWatch agent.
+    author:
+      - David Norman
+    options:
+      aws_mon_script_install_dir:
+        type: path
+        default: /opt
+        description: Directory the scripts are extracted into.
+      aws_mon_script_url:
+        type: str
+        default: https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip
+        description: URL of the monitoring scripts zip.

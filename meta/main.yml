@@ -1,8 +1,7 @@
 ---
-
 galaxy_info:
-  role_name: cloudwatch_monitoring_scripts
   namespace: deekayen
+  role_name: cloudwatch_monitoring_scripts
   author: David Norman
   description: "Install AWS CloudWatch Agent scripts to send metrics for monitoring memory, swap, and disk space."
 
@@ -10,13 +9,14 @@ galaxy_info:
   issue_tracker_url: https://github.com/deekayen/ansible-role-cloudwatch_monitoring_scripts/issues
 
   license: MIT
-  min_ansible_version: 2.2
+  min_ansible_version: "2.15"
 
+  # AWS replaced these scripts with the CloudWatch agent; kept for EL 7/8.
   platforms:
     - name: EL
       versions:
-        - 7
-        - 8
+        - "7"
+        - "8"
 
   galaxy_tags:
     - amazon
@@ -39,5 +39,5 @@ dependencies:
         - Sys::Syslog
         - LWP::Protocol::https
     when:
-      - ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
-      - ansible_distribution_major_version == '8'
+      - ansible_facts.distribution == 'CentOS' or ansible_facts.distribution == 'RedHat'
+      - ansible_facts.distribution_major_version == '8'
